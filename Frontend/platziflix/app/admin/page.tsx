@@ -36,7 +36,7 @@ export default function AdminPage() {
   }, [user, authLoading, router]);
 
   const cards = [
-    { label: "Videos publicados", value: stats ? `${stats.published_videos} / ${stats.total_videos}` : "—", icon: Film, href: "/admin/videos", color: "#e50914" },
+    { label: "Videos publicados", value: stats ? `${stats.published_videos} / ${stats.total_videos}` : "—", icon: Film, href: "/admin/videos", color: "#2563eb" },
     { label: "Usuarios", value: stats?.total_users ?? "—", icon: Users, href: "/admin/users", color: "#3b82f6" },
     { label: "Categorías", value: stats?.total_categories ?? "—", icon: FolderOpen, href: "/admin/categories", color: "#10b981" },
     { label: "Suscripciones activas", value: stats?.active_subscriptions ?? "—", icon: CreditCard, href: "/admin/users", color: "#f59e0b" },
@@ -46,7 +46,7 @@ export default function AdminPage() {
   return (
     <div className="max-w-5xl mx-auto px-4 py-8">
       <h1 className="text-2xl font-bold mb-2">Panel de administración</h1>
-      <p className="text-gray-400 mb-8">Gestiona el contenido de Platziflix</p>
+      <p className="text-gray-400 mb-8">Gestiona el contenido de Leaningfy</p>
 
       <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 mb-8">
         {cards.map(({ label, value, icon: Icon, href, color }) => (

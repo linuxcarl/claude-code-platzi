@@ -71,7 +71,7 @@ export default function CheckoutForm({ plan, billingCycle, open, onClose, onSucc
       >
         <DialogHeader>
           <DialogTitle className="flex items-center gap-2">
-            <CreditCard className="w-5 h-5" style={{ color: "#e50914" }} />
+            <CreditCard className="w-5 h-5" style={{ color: "#2563eb" }} />
             {step === "success" ? "¡Pago exitoso!" : "Completar suscripción"}
           </DialogTitle>
         </DialogHeader>
@@ -85,7 +85,7 @@ export default function CheckoutForm({ plan, billingCycle, open, onClose, onSucc
             </p>
             <Button
               onClick={() => { handleClose(); onSuccess(); }}
-              style={{ background: "#e50914" }}
+              style={{ background: "#2563eb" }}
               className="hover:opacity-90 w-full"
             >
               Empezar a aprender
@@ -95,7 +95,7 @@ export default function CheckoutForm({ plan, billingCycle, open, onClose, onSucc
           <div className="text-center py-8">
             <div
               className="w-12 h-12 rounded-full border-4 border-t-transparent mx-auto mb-4 animate-spin"
-              style={{ borderColor: "#e50914", borderTopColor: "transparent" }}
+              style={{ borderColor: "#2563eb", borderTopColor: "transparent" }}
             />
             <p className="text-gray-400">Procesando pago...</p>
           </div>
@@ -110,7 +110,7 @@ export default function CheckoutForm({ plan, billingCycle, open, onClose, onSucc
                 <p className="font-medium">{plan.name}</p>
                 <p className="text-sm text-gray-400">Facturación {billingCycle === "annual" ? "anual" : "mensual"}</p>
               </div>
-              <p className="text-xl font-black" style={{ color: "#e50914" }}>
+              <p className="text-xl font-black" style={{ color: "#2563eb" }}>
                 ${price} <span className="text-sm text-gray-400">/{label}</span>
               </p>
             </div>
@@ -166,7 +166,7 @@ export default function CheckoutForm({ plan, billingCycle, open, onClose, onSucc
             <Button
               type="submit"
               className="w-full hover:opacity-90 gap-2"
-              style={{ background: "#e50914" }}
+              style={{ background: "#2563eb" }}
             >
               <Lock className="w-4 h-4" />
               Pagar ${price}/{label}

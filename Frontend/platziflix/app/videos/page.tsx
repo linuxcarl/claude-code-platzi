@@ -105,7 +105,7 @@ function CatalogContent() {
           onClick={() => updateParam("is_free", isFree === "true" ? null : "true")}
           className="px-3 py-1.5 rounded text-sm transition-colors"
           style={{
-            background: isFree === "true" ? "#e50914" : "var(--card)",
+            background: isFree === "true" ? "#2563eb" : "var(--card)",
             border: "1px solid var(--border)",
             color: "white",
           }}
@@ -120,7 +120,7 @@ function CatalogContent() {
             onClick={() => updateParam("tag_slug", tagSlug === tag.slug ? null : tag.slug)}
             className="px-3 py-1.5 rounded text-sm transition-colors"
             style={{
-              background: tagSlug === tag.slug ? "#e50914" : "var(--card)",
+              background: tagSlug === tag.slug ? "#2563eb" : "var(--card)",
               border: "1px solid var(--border)",
               color: "white",
             }}

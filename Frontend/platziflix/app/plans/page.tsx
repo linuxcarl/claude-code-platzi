@@ -43,14 +43,14 @@ export default function PlansPage() {
           <button
             onClick={() => setBilling("monthly")}
             className="px-4 py-1.5 rounded text-sm font-medium transition-colors"
-            style={{ background: billing === "monthly" ? "#e50914" : "transparent", color: "white" }}
+            style={{ background: billing === "monthly" ? "#2563eb" : "transparent", color: "white" }}
           >
             Mensual
           </button>
           <button
             onClick={() => setBilling("annual")}
             className="px-4 py-1.5 rounded text-sm font-medium transition-colors"
-            style={{ background: billing === "annual" ? "#e50914" : "transparent", color: "white" }}
+            style={{ background: billing === "annual" ? "#2563eb" : "transparent", color: "white" }}
           >
             Anual (2 meses gratis)
           </button>
@@ -71,13 +71,13 @@ export default function PlansPage() {
               className="rounded-xl p-6 flex flex-col"
               style={{
                 background: "var(--card)",
-                border: idx === 1 ? "2px solid #e50914" : "1px solid var(--border)",
+                border: idx === 1 ? "2px solid #2563eb" : "1px solid var(--border)",
               }}
             >
               {idx === 1 && (
                 <div
                   className="text-xs font-bold px-2 py-0.5 rounded mb-3 self-start"
-                  style={{ background: "#e50914", color: "white" }}
+                  style={{ background: "#2563eb", color: "white" }}
                 >
                   MÁS POPULAR
                 </div>
@@ -106,7 +106,7 @@ export default function PlansPage() {
               <Button
                 onClick={() => handleSubscribe(plan)}
                 className="w-full hover:opacity-90"
-                style={{ background: idx === 1 ? "#e50914" : "var(--secondary)", color: "white" }}
+                style={{ background: idx === 1 ? "#2563eb" : "var(--secondary)", color: "white" }}
               >
                 Suscribirse
               </Button>

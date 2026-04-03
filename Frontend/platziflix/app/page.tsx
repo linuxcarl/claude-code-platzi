@@ -57,7 +57,7 @@ export default function HomePage() {
         }}
       >
         <div className="absolute inset-0 flex items-center justify-center opacity-5">
-          <div className="text-9xl font-black text-white">PLATZIFLIX</div>
+          <div className="text-9xl font-black text-white">LEANINGFY</div>
         </div>
         <div className="relative max-w-2xl">
           <h1 className="text-4xl md:text-6xl font-black text-white mb-4">
@@ -69,7 +69,7 @@ export default function HomePage() {
           <div className="flex gap-3">
             {featured ? (
               <Link href={`/videos/${featured.slug}`}>
-                <Button style={{ background: "#e50914" }} className="hover:opacity-90 gap-2">
+                <Button style={{ background: "#2563eb" }} className="hover:opacity-90 gap-2">
                   <Play className="w-4 h-4 fill-white" />
                   Ver ahora gratis
                 </Button>

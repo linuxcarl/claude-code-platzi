@@ -82,14 +82,14 @@ export default function VideoDetailPage() {
           className="inline-flex items-center justify-center w-20 h-20 rounded-full mb-6"
           style={{ background: "var(--card)" }}
         >
-          <Lock className="w-10 h-10" style={{ color: "#e50914" }} />
+          <Lock className="w-10 h-10" style={{ color: "#2563eb" }} />
         </div>
         <h2 className="text-2xl font-bold mb-3">Contenido Premium</h2>
         <p className="text-gray-400 mb-6">
           Este video requiere una suscripción activa para verlo.
         </p>
         <Link href="/plans">
-          <Button style={{ background: "#e50914" }} className="hover:opacity-90">
+          <Button style={{ background: "#2563eb" }} className="hover:opacity-90">
             Ver planes de suscripción
           </Button>
         </Link>
@@ -127,7 +127,7 @@ export default function VideoDetailPage() {
           >
             <Heart
               className="w-5 h-5"
-              style={{ color: isFav ? "#e50914" : "gray", fill: isFav ? "#e50914" : "none" }}
+              style={{ color: isFav ? "#2563eb" : "gray", fill: isFav ? "#2563eb" : "none" }}
             />
           </Button>
         </div>
@@ -174,7 +174,7 @@ export default function VideoDetailPage() {
               <span>{progressPct}%</span>
             </div>
             <div className="h-1 rounded bg-gray-700">
-              <div className="h-full rounded" style={{ width: `${progressPct}%`, background: "#e50914" }} />
+              <div className="h-full rounded" style={{ width: `${progressPct}%`, background: "#2563eb" }} />
             </div>
           </div>
         )}

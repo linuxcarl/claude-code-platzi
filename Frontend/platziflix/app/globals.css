@@ -5,17 +5,17 @@
   --foreground: #ffffff;
   --card: #1f1f1f;
   --card-foreground: #ffffff;
-  --primary: #e50914;
+  --primary: #2563eb;
   --primary-foreground: #ffffff;
   --secondary: #2d2d2d;
   --secondary-foreground: #ffffff;
   --muted: #2d2d2d;
   --muted-foreground: #a1a1aa;
-  --accent: #e50914;
+  --accent: #2563eb;
   --accent-foreground: #ffffff;
   --border: #3f3f3f;
   --input: #2d2d2d;
-  --ring: #e50914;
+  --ring: #2563eb;
 }
 
 @theme inline {

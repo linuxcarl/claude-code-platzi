@@ -50,8 +50,8 @@ export default function Navbar() {
       className="sticky top-0 z-50 backdrop-blur-sm"
     >
       <div className="max-w-7xl mx-auto px-4 h-16 flex items-center gap-6">
-        <Link href="/" className="text-2xl font-bold" style={{ color: "#e50914" }}>
-          PLATZIFLIX
+        <Link href="/" className="text-2xl font-bold" style={{ color: "#2563eb" }}>
+          LEANINGFY
         </Link>
 
         <div className="hidden md:flex gap-4 text-sm text-gray-300">
@@ -81,7 +81,7 @@ export default function Navbar() {
                 </Button>
               </Link>
               <Link href="/register">
-                <Button size="sm" style={{ background: "#e50914" }} className="hover:opacity-90">
+                <Button size="sm" style={{ background: "#2563eb" }} className="hover:opacity-90">
                   Registrarse
                 </Button>
               </Link>
@@ -92,7 +92,7 @@ export default function Navbar() {
                 <button className="flex items-center gap-2 focus:outline-none">
                   <div className="relative">
                     <Avatar className="w-8 h-8">
-                      <AvatarFallback style={{ background: "#e50914", color: "white", fontSize: 12 }}>
+                      <AvatarFallback style={{ background: "#2563eb", color: "white", fontSize: 12 }}>
                         {initials}
                       </AvatarFallback>
                     </Avatar>

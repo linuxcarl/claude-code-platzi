@@ -29,7 +29,7 @@ export default function FavoritesPage() {
   return (
     <div className="max-w-7xl mx-auto px-4 py-8">
       <h1 className="text-2xl font-bold mb-6 flex items-center gap-2">
-        <Heart className="w-6 h-6" style={{ color: "#e50914" }} /> Mis favoritos
+        <Heart className="w-6 h-6" style={{ color: "#2563eb" }} /> Mis favoritos
       </h1>
 
       {loading ? (
@@ -39,7 +39,7 @@ export default function FavoritesPage() {
           <Heart className="w-12 h-12 mx-auto mb-3 opacity-30" />
           <p>Aún no tienes favoritos</p>
           <Link href="/videos" className="mt-4 block">
-            <Button style={{ background: "#e50914" }} className="hover:opacity-90 mt-3">
+            <Button style={{ background: "#2563eb" }} className="hover:opacity-90 mt-3">
               Explorar videos
             </Button>
           </Link>

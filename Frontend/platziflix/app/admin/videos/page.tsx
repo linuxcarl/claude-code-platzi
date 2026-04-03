@@ -120,7 +120,7 @@ export default function AdminVideosPage() {
     <div className="max-w-6xl mx-auto px-4 py-8">
       <div className="flex items-center justify-between mb-6">
         <h1 className="text-2xl font-bold">Videos</h1>
-        <Button onClick={openCreate} style={{ background: "#e50914" }} className="hover:opacity-90 gap-2">
+        <Button onClick={openCreate} style={{ background: "#2563eb" }} className="hover:opacity-90 gap-2">
           <Plus className="w-4 h-4" /> Nuevo video
         </Button>
       </div>
@@ -159,7 +159,7 @@ export default function AdminVideosPage() {
                     </Badge>
                   </td>
                   <td className="px-4 py-3">
-                    <Badge style={{ background: v.is_free ? "#16a34a22" : "#e5091422", color: v.is_free ? "#4ade80" : "#f87171" }}>
+                    <Badge style={{ background: v.is_free ? "#16a34a22" : "#2563eb22", color: v.is_free ? "#4ade80" : "#f87171" }}>
                       {v.is_free ? "Gratis" : "Premium"}
                     </Badge>
                   </td>
@@ -252,7 +252,7 @@ export default function AdminVideosPage() {
               <Label htmlFor="is_free" className="text-gray-300">Contenido gratuito</Label>
             </div>
             <div className="flex gap-2 pt-2">
-              <Button type="submit" disabled={saving} style={{ background: "#e50914" }} className="hover:opacity-90 flex-1">
+              <Button type="submit" disabled={saving} style={{ background: "#2563eb" }} className="hover:opacity-90 flex-1">
                 {saving ? "Guardando..." : "Guardar"}
               </Button>
               <Button type="button" variant="outline" onClick={() => setShowModal(false)}

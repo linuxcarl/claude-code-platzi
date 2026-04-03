@@ -70,7 +70,7 @@ export default function SubscriptionPage() {
           <XCircle className="w-12 h-12 mx-auto mb-3 text-gray-500" />
           <p className="text-gray-400 mb-4">No tienes una suscripción activa</p>
           <Link href="/plans">
-            <Button style={{ background: "#e50914" }} className="hover:opacity-90">
+            <Button style={{ background: "#2563eb" }} className="hover:opacity-90">
               Ver planes
             </Button>
           </Link>

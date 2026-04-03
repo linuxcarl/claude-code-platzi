@@ -42,7 +42,7 @@ export default function RegisterPage() {
         style={{ background: "var(--card)", border: "1px solid var(--border)" }}
       >
         <div className="text-center mb-8">
-          <h1 className="text-2xl font-bold" style={{ color: "#e50914" }}>PLATZIFLIX</h1>
+          <h1 className="text-2xl font-bold" style={{ color: "#2563eb" }}>LEANINGFY</h1>
           <p className="text-gray-400 mt-1">Crea tu cuenta gratuita</p>
         </div>
 
@@ -84,7 +84,7 @@ export default function RegisterPage() {
             type="submit"
             disabled={loading}
             className="w-full hover:opacity-90"
-            style={{ background: "#e50914", color: "white" }}
+            style={{ background: "#2563eb", color: "white" }}
           >
             {loading ? "Creando cuenta..." : "Crear cuenta"}
           </Button>

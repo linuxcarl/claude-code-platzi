@@ -83,7 +83,7 @@ export default function AdminCategoriesPage() {
     <div className="max-w-4xl mx-auto px-4 py-8">
       <div className="flex items-center justify-between mb-6">
         <h1 className="text-2xl font-bold">Categorías</h1>
-        <Button onClick={openCreate} style={{ background: "#e50914" }} className="hover:opacity-90 gap-2">
+        <Button onClick={openCreate} style={{ background: "#2563eb" }} className="hover:opacity-90 gap-2">
           <Plus className="w-4 h-4" /> Nueva categoría
         </Button>
       </div>
@@ -145,7 +145,7 @@ export default function AdminCategoriesPage() {
                 style={{ background: "var(--input)", border: "1px solid var(--border)", color: "white" }} />
             </div>
             <div className="flex gap-2 pt-2">
-              <Button type="submit" disabled={saving} style={{ background: "#e50914" }} className="hover:opacity-90 flex-1">
+              <Button type="submit" disabled={saving} style={{ background: "#2563eb" }} className="hover:opacity-90 flex-1">
                 {saving ? "Guardando..." : "Guardar"}
               </Button>
               <Button type="button" variant="outline" onClick={() => setShowModal(false)}

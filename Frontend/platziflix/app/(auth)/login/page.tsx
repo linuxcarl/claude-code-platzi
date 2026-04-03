@@ -39,7 +39,7 @@ function LoginForm() {
         style={{ background: "var(--card)", border: "1px solid var(--border)" }}
       >
         <div className="text-center mb-8">
-          <h1 className="text-2xl font-bold" style={{ color: "#e50914" }}>PLATZIFLIX</h1>
+          <h1 className="text-2xl font-bold" style={{ color: "#2563eb" }}>LEANINGFY</h1>
           <p className="text-gray-400 mt-1">Inicia sesión en tu cuenta</p>
         </div>
 
@@ -71,7 +71,7 @@ function LoginForm() {
             type="submit"
             disabled={loading}
             className="w-full hover:opacity-90"
-            style={{ background: "#e50914", color: "white" }}
+            style={{ background: "#2563eb", color: "white" }}
           >
             {loading ? "Iniciando sesión..." : "Iniciar sesión"}
           </Button>

@@ -49,7 +49,7 @@ export default function HistoryPage() {
           <Clock className="w-12 h-12 mx-auto mb-3 opacity-30" />
           <p>No has visto ningún video aún</p>
           <Link href="/videos">
-            <Button style={{ background: "#e50914" }} className="hover:opacity-90 mt-4">
+            <Button style={{ background: "#2563eb" }} className="hover:opacity-90 mt-4">
               Explorar videos
             </Button>
           </Link>

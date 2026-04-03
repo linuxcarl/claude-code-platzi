@@ -113,7 +113,7 @@ export default function FileUpload({ videoId, onUploadComplete }: Props) {
           <div className="h-2 rounded-full bg-gray-700">
             <div
               className="h-full rounded-full transition-all duration-300"
-              style={{ width: `${progress}%`, background: "#e50914" }}
+              style={{ width: `${progress}%`, background: "#2563eb" }}
             />
           </div>
         </div>

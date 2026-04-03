@@ -106,7 +106,7 @@ export default function ProfilePage() {
           <Button
             type="submit"
             disabled={saving}
-            style={{ background: "#e50914" }}
+            style={{ background: "#2563eb" }}
             className="hover:opacity-90"
           >
             {saving ? "Guardando..." : "Guardar cambios"}

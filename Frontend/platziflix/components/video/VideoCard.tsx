@@ -74,7 +74,7 @@ export default function VideoCard({ video, userProgress }: Props) {
             <div className="absolute bottom-0 left-0 right-0 h-1 bg-gray-700">
               <div
                 className="h-full"
-                style={{ width: `${Math.min(userProgress, 100)}%`, background: "#e50914" }}
+                style={{ width: `${Math.min(userProgress, 100)}%`, background: "#2563eb" }}
               />
             </div>
           )}

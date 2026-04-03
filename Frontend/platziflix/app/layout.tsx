@@ -6,7 +6,7 @@ import Navbar from "@/components/layout/Navbar";
 import Footer from "@/components/layout/Footer";
 
 export const metadata: Metadata = {
-  title: "Platziflix - Aprende con los mejores",
+  title: "Leaningfy - Aprende con los mejores",
   description: "Plataforma de cursos de tecnología online",
 };
 
