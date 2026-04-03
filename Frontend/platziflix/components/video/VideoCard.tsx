@@ -15,8 +15,24 @@ export default function VideoCard({ video, userProgress }: Props) {
   return (
     <Link href={`/videos/${video.slug}`} className="group block">
       <div
-        className="rounded-lg overflow-hidden transition-transform duration-200 group-hover:scale-105"
-        style={{ background: "var(--card)" }}
+        className="rounded-lg overflow-hidden transition-all duration-300 group-hover:scale-105"
+        style={{
+          background: "var(--card)",
+          border: "1px solid transparent",
+          backgroundClip: "padding-box",
+          boxShadow: "0 0 0 1px transparent",
+          transition: "transform 0.3s ease, box-shadow 0.3s ease, border-color 0.3s ease",
+        }}
+        onMouseEnter={(e) => {
+          const el = e.currentTarget;
+          el.style.borderColor = "#2563eb";
+          el.style.boxShadow = "0 0 0 1px #2563eb, 0 0 20px rgba(37,99,235,0.35), 0 8px 24px rgba(37,99,235,0.2)";
+        }}
+        onMouseLeave={(e) => {
+          const el = e.currentTarget;
+          el.style.borderColor = "transparent";
+          el.style.boxShadow = "0 0 0 1px transparent";
+        }}
       >
         {/* Thumbnail */}
         <div className="relative aspect-video bg-gray-800 overflow-hidden">
@@ -49,7 +65,7 @@ export default function VideoCard({ video, userProgress }: Props) {
             <div className="absolute top-2 right-2">
               <div
                 className="flex items-center gap-1 px-2 py-0.5 rounded text-xs font-medium text-white"
-                style={{ background: "rgba(229,9,20,0.9)" }}
+                style={{ background: "rgba(37,99,235,0.9)" }}
               >
                 <Lock className="w-3 h-3" />
                 Premium
