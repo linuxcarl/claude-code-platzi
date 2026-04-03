@@ -67,3 +67,20 @@ async def archive_video(video_id: UUID, _: User = Depends(admin_user), db: Async
 async def publish_video(video_id: UUID, _: User = Depends(admin_user), db: AsyncSession = Depends(get_db)):
     video = await VideoService(db).publish(video_id)
     return VideoListItem.model_validate(video)
+
+
+@router.post("/{video_id}/upload-url")
+async def get_upload_url(
+    video_id: UUID,
+    _: User = Depends(admin_user),
+    db: AsyncSession = Depends(get_db),
+):
+    """
+    Mock endpoint — in production generates a real S3 presigned URL.
+    Returns a fake upload URL for testing purposes.
+    """
+    return {
+        "upload_url": f"https://mock-s3.example.com/videos/{video_id}?mock=true",
+        "video_url": f"https://mock-cdn.example.com/videos/{video_id}/video.mp4",
+        "expires_in": 3600,
+    }

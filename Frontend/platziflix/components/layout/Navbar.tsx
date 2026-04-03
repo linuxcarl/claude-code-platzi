@@ -2,6 +2,7 @@
 
 import Link from "next/link";
 import { useAuth } from "@/lib/auth";
+import { subscriptions as subsApi } from "@/lib/api";
 import {
   DropdownMenu,
   DropdownMenuContent,
@@ -13,12 +14,19 @@ import { Avatar, AvatarFallback } from "@/components/ui/avatar";
 import { Button } from "@/components/ui/button";
 import { useRouter } from "next/navigation";
 import { Search } from "lucide-react";
-import { useState } from "react";
+import { useState, useEffect } from "react";
+import type { Subscription } from "@/lib/types";
 
 export default function Navbar() {
   const { user, logout } = useAuth();
   const router = useRouter();
   const [search, setSearch] = useState("");
+  const [subscription, setSubscription] = useState<Subscription | null>(null);
+
+  useEffect(() => {
+    if (!user) { setSubscription(null); return; }
+    subsApi.current().then(setSubscription).catch(() => setSubscription(null));
+  }, [user]);
 
   const handleSearch = (e: React.FormEvent) => {
     e.preventDefault();
@@ -33,6 +41,8 @@ export default function Navbar() {
   const initials = user?.full_name
     ? user.full_name.split(" ").map((n) => n[0]).slice(0, 2).join("").toUpperCase()
     : "U";
+
+  const isPremium = subscription?.status === "active";
 
   return (
     <nav
@@ -80,12 +90,28 @@ export default function Navbar() {
             <DropdownMenu>
               <DropdownMenuTrigger asChild>
                 <button className="flex items-center gap-2 focus:outline-none">
-                  <Avatar className="w-8 h-8">
-                    <AvatarFallback style={{ background: "#e50914", color: "white", fontSize: 12 }}>
-                      {initials}
-                    </AvatarFallback>
-                  </Avatar>
-                  <span className="hidden md:block text-sm text-gray-300">{user.full_name}</span>
+                  <div className="relative">
+                    <Avatar className="w-8 h-8">
+                      <AvatarFallback style={{ background: "#e50914", color: "white", fontSize: 12 }}>
+                        {initials}
+                      </AvatarFallback>
+                    </Avatar>
+                    {isPremium && (
+                      <span
+                        className="absolute -top-1 -right-1 w-3 h-3 rounded-full border-2"
+                        style={{ background: "#f59e0b", borderColor: "#141414" }}
+                        title="Premium"
+                      />
+                    )}
+                  </div>
+                  <div className="hidden md:flex flex-col items-start">
+                    <span className="text-sm text-gray-300 leading-none">{user.full_name}</span>
+                    {isPremium && (
+                      <span className="text-xs font-bold" style={{ color: "#f59e0b" }}>
+                        {subscription?.plan.name}
+                      </span>
+                    )}
+                  </div>
                 </button>
               </DropdownMenuTrigger>
               <DropdownMenuContent
@@ -110,7 +136,12 @@ export default function Navbar() {
                 </DropdownMenuItem>
                 <DropdownMenuItem asChild>
                   <Link href="/profile/subscription" className="text-gray-200 hover:text-white cursor-pointer">
-                    Mi suscripción
+                    {isPremium ? (
+                      <span>
+                        Mi suscripción{" "}
+                        <span style={{ color: "#f59e0b" }}>●</span>
+                      </span>
+                    ) : "Mi suscripción"}
                   </Link>
                 </DropdownMenuItem>
                 {user.role === "admin" && (

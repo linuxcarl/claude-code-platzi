@@ -134,7 +134,7 @@ export default function SubscriptionPage() {
                 {payments.map((p) => (
                   <div key={p.id} className="flex items-center justify-between text-sm">
                     <div>
-                      <p className="text-white">{p.plan_name}</p>
+                      <p className="text-white">Pago #{p.id.slice(0, 8)}</p>
                       <p className="text-gray-500">{new Date(p.paid_at || p.created_at).toLocaleDateString("es")}</p>
                     </div>
                     <div className="text-right">

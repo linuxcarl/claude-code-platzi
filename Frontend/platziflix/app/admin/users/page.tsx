@@ -125,14 +125,14 @@ export default function AdminUsersPage() {
         </table>
       </div>
 
-      {data && data.pages > 1 && (
+      {data && ((data.pages ?? Math.ceil(data.total / 20)) ?? Math.ceil(data.total / 20)) > 1 && (
         <div className="flex items-center justify-center gap-2 mt-4">
           <Button variant="outline" size="sm" disabled={page <= 1} onClick={() => setPage(page - 1)}
             style={{ border: "1px solid var(--border)", color: "white" }}>
             <ChevronLeft className="w-4 h-4" />
           </Button>
-          <span className="text-sm text-gray-400">Página {page} de {data.pages}</span>
-          <Button variant="outline" size="sm" disabled={page >= data.pages} onClick={() => setPage(page + 1)}
+          <span className="text-sm text-gray-400">Página {page} de {(data.pages ?? Math.ceil(data.total / 20))}</span>
+          <Button variant="outline" size="sm" disabled={page >= (data.pages ?? Math.ceil(data.total / 20))} onClick={() => setPage(page + 1)}
             style={{ border: "1px solid var(--border)", color: "white" }}>
             <ChevronRight className="w-4 h-4" />
           </Button>

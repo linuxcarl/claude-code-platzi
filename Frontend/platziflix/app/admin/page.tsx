@@ -3,14 +3,23 @@
 import { useEffect, useState } from "react";
 import { useRouter } from "next/navigation";
 import { useAuth } from "@/lib/auth";
-import { admin as adminApi, categories as catsApi } from "@/lib/api";
+import { admin as adminApi } from "@/lib/api";
 import Link from "next/link";
-import { Film, Users, FolderOpen, ChevronRight } from "lucide-react";
+import { Film, Users, FolderOpen, CreditCard, DollarSign, ChevronRight } from "lucide-react";
+
+interface Stats {
+  total_videos: number;
+  published_videos: number;
+  total_users: number;
+  total_categories: number;
+  active_subscriptions: number;
+  total_revenue: number;
+}
 
 export default function AdminPage() {
   const { user, loading: authLoading } = useAuth();
   const router = useRouter();
-  const [stats, setStats] = useState({ videos: 0, users: 0, categories: 0 });
+  const [stats, setStats] = useState<Stats | null>(null);
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
@@ -19,23 +28,19 @@ export default function AdminPage() {
       return;
     }
     if (user?.role === "admin") {
-      Promise.all([
-        adminApi.videos.list({ page_size: 1 }),
-        adminApi.users.list({ page_size: 1 }),
-        catsApi.list(),
-      ])
-        .then(([vids, usrs, cats]) => {
-          setStats({ videos: vids.total, users: usrs.total, categories: cats.length });
-        })
+      adminApi.dashboard.stats()
+        .then(setStats)
         .catch(console.error)
         .finally(() => setLoading(false));
     }
   }, [user, authLoading, router]);
 
   const cards = [
-    { label: "Videos", value: stats.videos, icon: Film, href: "/admin/videos", color: "#e50914" },
-    { label: "Usuarios", value: stats.users, icon: Users, href: "/admin/users", color: "#3b82f6" },
-    { label: "Categorías", value: stats.categories, icon: FolderOpen, href: "/admin/categories", color: "#10b981" },
+    { label: "Videos publicados", value: stats ? `${stats.published_videos} / ${stats.total_videos}` : "—", icon: Film, href: "/admin/videos", color: "#e50914" },
+    { label: "Usuarios", value: stats?.total_users ?? "—", icon: Users, href: "/admin/users", color: "#3b82f6" },
+    { label: "Categorías", value: stats?.total_categories ?? "—", icon: FolderOpen, href: "/admin/categories", color: "#10b981" },
+    { label: "Suscripciones activas", value: stats?.active_subscriptions ?? "—", icon: CreditCard, href: "/admin/users", color: "#f59e0b" },
+    { label: "Ingresos totales", value: stats ? `$${stats.total_revenue.toFixed(2)}` : "—", icon: DollarSign, href: "/admin/users", color: "#8b5cf6" },
   ];
 
   return (
@@ -43,22 +48,22 @@ export default function AdminPage() {
       <h1 className="text-2xl font-bold mb-2">Panel de administración</h1>
       <p className="text-gray-400 mb-8">Gestiona el contenido de Platziflix</p>
 
-      <div className="grid grid-cols-1 sm:grid-cols-3 gap-4 mb-8">
+      <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 mb-8">
         {cards.map(({ label, value, icon: Icon, href, color }) => (
           <Link
-            key={href}
+            key={label}
             href={href}
             className="rounded-xl p-6 flex items-center justify-between hover:opacity-90 transition-opacity"
             style={{ background: "var(--card)", border: "1px solid var(--border)" }}
           >
             <div>
               <p className="text-gray-400 text-sm mb-1">{label}</p>
-              <p className="text-3xl font-black" style={{ color }}>
+              <p className="text-2xl font-black" style={{ color }}>
                 {loading ? "—" : value}
               </p>
             </div>
             <div className="flex flex-col items-center gap-2">
-              <Icon className="w-8 h-8" style={{ color, opacity: 0.6 }} />
+              <Icon className="w-7 h-7" style={{ color, opacity: 0.6 }} />
               <ChevronRight className="w-4 h-4 text-gray-500" />
             </div>
           </Link>

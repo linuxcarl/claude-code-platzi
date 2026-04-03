@@ -177,6 +177,17 @@ export const subscriptions = {
 
 // Admin
 export const admin = {
+  dashboard: {
+    stats: () =>
+      request<{
+        total_videos: number;
+        published_videos: number;
+        total_users: number;
+        total_categories: number;
+        active_subscriptions: number;
+        total_revenue: number;
+      }>("/admin/dashboard/stats"),
+  },
   videos: {
     list: (params: { page?: number; page_size?: number; status?: string } = {}) => {
       const q = new URLSearchParams();
@@ -200,6 +211,11 @@ export const admin = {
     delete: (id: string) => request<void>(`/admin/videos/${id}`, { method: "DELETE" }),
     publish: (id: string) =>
       request<import("./types").VideoListItem>(`/admin/videos/${id}/publish`, { method: "POST" }),
+    getUploadUrl: (id: string) =>
+      request<{ upload_url: string; video_url: string; expires_in: number }>(
+        `/admin/videos/${id}/upload-url`,
+        { method: "POST" }
+      ),
   },
   categories: {
     list: () =>

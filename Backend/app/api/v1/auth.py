@@ -1,6 +1,8 @@
-from fastapi import APIRouter, Depends, Response, Cookie
+from fastapi import APIRouter, Depends, Response, Cookie, Request
 from typing import Optional
 from sqlalchemy.ext.asyncio import AsyncSession
+from slowapi import Limiter
+from slowapi.util import get_remote_address
 from app.core.database import get_db
 from app.api.deps import get_current_active_user
 from app.services.auth_service import AuthService
@@ -10,6 +12,7 @@ from app.models.user import User
 from app.config import settings
 
 router = APIRouter(prefix="/auth", tags=["auth"])
+limiter = Limiter(key_func=get_remote_address)
 
 
 @router.post("/register", response_model=UserResponse, status_code=201)
@@ -19,7 +22,8 @@ async def register(data: RegisterRequest, db: AsyncSession = Depends(get_db)):
 
 
 @router.post("/login", response_model=TokenResponse)
-async def login(data: LoginRequest, response: Response, db: AsyncSession = Depends(get_db)):
+@limiter.limit("10/minute")
+async def login(request: Request, data: LoginRequest, response: Response, db: AsyncSession = Depends(get_db)):
     access_token, refresh_token = await AuthService(db).login(data.email, data.password)
     response.set_cookie(
         key="refresh_token",

@@ -15,6 +15,14 @@ interface AuthContextType {
 
 const AuthContext = createContext<AuthContextType | null>(null);
 
+function setSessionCookie(value: "1" | "0") {
+  if (value === "1") {
+    document.cookie = "has_session=1; path=/; SameSite=Lax; max-age=86400";
+  } else {
+    document.cookie = "has_session=0; path=/; SameSite=Lax; max-age=0";
+  }
+}
+
 export function AuthProvider({ children }: { children: React.ReactNode }) {
   const [user, setUser] = useState<User | null>(null);
   const [loading, setLoading] = useState(true);
@@ -23,9 +31,11 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
     try {
       const me = await usersApi.me();
       setUser(me);
+      setSessionCookie("1");
     } catch {
       setUser(null);
       clearToken();
+      setSessionCookie("0");
     }
   }, []);
 
@@ -37,7 +47,11 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
       setLoading(false);
     }
 
-    const onLogout = () => { setUser(null); clearToken(); };
+    const onLogout = () => {
+      setUser(null);
+      clearToken();
+      setSessionCookie("0");
+    };
     window.addEventListener("auth:logout", onLogout);
     return () => window.removeEventListener("auth:logout", onLogout);
   }, [refreshUser]);
@@ -58,6 +72,7 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
     try { await authApi.logout(); } catch { /* ignore */ }
     clearToken();
     setUser(null);
+    setSessionCookie("0");
   };
 
   return (

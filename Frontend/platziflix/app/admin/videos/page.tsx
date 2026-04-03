@@ -12,6 +12,7 @@ import { Badge } from "@/components/ui/badge";
 import { Dialog, DialogContent, DialogHeader, DialogTitle } from "@/components/ui/dialog";
 import { toast } from "sonner";
 import { Plus, Pencil, Trash2, CheckCircle, ChevronLeft, ChevronRight } from "lucide-react";
+import FileUpload from "@/components/admin/FileUpload";
 
 const STATUS_COLOR: Record<string, string> = {
   published: "#4ade80",
@@ -185,14 +186,14 @@ export default function AdminVideosPage() {
       </div>
 
       {/* Pagination */}
-      {data && data.pages > 1 && (
+      {data && (data.pages ?? Math.ceil(data.total / 15)) > 1 && (
         <div className="flex items-center justify-center gap-2 mt-4">
           <Button variant="outline" size="sm" disabled={page <= 1} onClick={() => setPage(page - 1)}
             style={{ border: "1px solid var(--border)", color: "white" }}>
             <ChevronLeft className="w-4 h-4" />
           </Button>
-          <span className="text-sm text-gray-400">Página {page} de {data.pages}</span>
-          <Button variant="outline" size="sm" disabled={page >= data.pages} onClick={() => setPage(page + 1)}
+          <span className="text-sm text-gray-400">Página {page} de {(data.pages ?? Math.ceil(data.total / 15))}</span>
+          <Button variant="outline" size="sm" disabled={page >= (data.pages ?? Math.ceil(data.total / 15))} onClick={() => setPage(page + 1)}
             style={{ border: "1px solid var(--border)", color: "white" }}>
             <ChevronRight className="w-4 h-4" />
           </Button>
@@ -221,6 +222,15 @@ export default function AdminVideosPage() {
               <Input value={form.video_url} onChange={(e) => setForm({ ...form, video_url: e.target.value })}
                 placeholder="https://..."
                 style={{ background: "var(--input)", border: "1px solid var(--border)", color: "white" }} />
+              {editing && (
+                <div className="mt-2">
+                  <p className="text-xs text-gray-500 mb-1">O subir archivo:</p>
+                  <FileUpload
+                    videoId={editing.id}
+                    onUploadComplete={(url) => setForm((f) => ({ ...f, video_url: url }))}
+                  />
+                </div>
+              )}
             </div>
             <div>
               <Label className="text-gray-300 mb-1 block">URL miniatura</Label>

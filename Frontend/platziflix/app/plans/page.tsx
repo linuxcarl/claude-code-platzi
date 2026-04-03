@@ -6,15 +6,15 @@ import { useAuth } from "@/lib/auth";
 import type { SubscriptionPlan } from "@/lib/types";
 import { Button } from "@/components/ui/button";
 import { Check } from "lucide-react";
-import { toast } from "sonner";
-import { useRouter } from "next/navigation";
 import { Skeleton } from "@/components/ui/skeleton";
+import { useRouter } from "next/navigation";
+import CheckoutForm from "@/components/checkout/CheckoutForm";
 
 export default function PlansPage() {
   const [plans, setPlans] = useState<SubscriptionPlan[]>([]);
   const [billing, setBilling] = useState<"monthly" | "annual">("monthly");
   const [loading, setLoading] = useState(true);
-  const [subscribing, setSubscribing] = useState<string | null>(null);
+  const [checkout, setCheckout] = useState<SubscriptionPlan | null>(null);
   const { user } = useAuth();
   const router = useRouter();
 
@@ -25,18 +25,9 @@ export default function PlansPage() {
       .finally(() => setLoading(false));
   }, []);
 
-  const handleSubscribe = async (plan: SubscriptionPlan) => {
+  const handleSubscribe = (plan: SubscriptionPlan) => {
     if (!user) { router.push("/login?redirect=/plans"); return; }
-    setSubscribing(plan.id);
-    try {
-      await subsApi.subscribe({ plan_id: plan.id, billing_cycle: billing });
-      toast.success(`¡Suscripción a ${plan.name} activada!`);
-      router.push("/profile/subscription");
-    } catch (err: unknown) {
-      toast.error(err instanceof Error ? err.message : "Error al suscribirse");
-    } finally {
-      setSubscribing(null);
-    }
+    setCheckout(plan);
   };
 
   return (
@@ -45,7 +36,6 @@ export default function PlansPage() {
         <h1 className="text-3xl font-bold mb-3">Elige tu plan</h1>
         <p className="text-gray-400">Accede a todo el contenido que necesitas para crecer</p>
 
-        {/* Billing toggle */}
         <div
           className="inline-flex rounded-lg p-1 mt-6"
           style={{ background: "var(--card)", border: "1px solid var(--border)" }}
@@ -106,7 +96,7 @@ export default function PlansPage() {
                 )}
               </div>
               <ul className="space-y-2 mb-6 flex-1">
-                {plan.features.map((feature, i) => (
+                {(plan.features ?? []).map((feature, i) => (
                   <li key={i} className="flex items-center gap-2 text-sm text-gray-300">
                     <Check className="w-4 h-4 text-green-400 shrink-0" />
                     {feature}
@@ -115,15 +105,24 @@ export default function PlansPage() {
               </ul>
               <Button
                 onClick={() => handleSubscribe(plan)}
-                disabled={subscribing === plan.id}
                 className="w-full hover:opacity-90"
                 style={{ background: idx === 1 ? "#e50914" : "var(--secondary)", color: "white" }}
               >
-                {subscribing === plan.id ? "Procesando..." : "Suscribirse"}
+                Suscribirse
               </Button>
             </div>
           ))}
         </div>
+      )}
+
+      {checkout && (
+        <CheckoutForm
+          plan={checkout}
+          billingCycle={billing}
+          open={!!checkout}
+          onClose={() => setCheckout(null)}
+          onSuccess={() => { setCheckout(null); router.push("/profile/subscription"); }}
+        />
       )}
     </div>
   );
