@@ -8,6 +8,7 @@ from slowapi.util import get_remote_address
 from slowapi.errors import RateLimitExceeded
 
 from app.config import settings
+from fastapi.responses import JSONResponse
 from app.core.exceptions import AppException, app_exception_handler
 from app.core.middleware import RequestIDMiddleware
 from app.api.v1.router import api_router
@@ -50,6 +51,16 @@ def create_app() -> FastAPI:
 
     # Exception handlers
     app.add_exception_handler(AppException, app_exception_handler)
+
+    async def generic_exception_handler(request: Request, exc: Exception):
+        import logging
+        logging.getLogger("platziflix").error("Unhandled exception", exc_info=exc)
+        return JSONResponse(
+            status_code=500,
+            content={"error": {"code": "INTERNAL_ERROR", "message": "Error interno del servidor"}},
+        )
+
+    app.add_exception_handler(Exception, generic_exception_handler)
 
     # Routers
     app.include_router(api_router, prefix=settings.API_V1_PREFIX)

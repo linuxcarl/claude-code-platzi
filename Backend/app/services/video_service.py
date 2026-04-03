@@ -62,7 +62,7 @@ class VideoService:
             video.tags = list(tags)
             await self.repo.db.flush()
 
-        return video
+        return await self.repo.get_by_id(video.id)
 
     async def update(self, video_id: UUID, **kwargs):
         video = await self.repo.get_by_id(video_id)
@@ -72,23 +72,24 @@ class VideoService:
         tag_ids = kwargs.pop("tag_ids", None)
         updates = {k: v for k, v in kwargs.items() if v is not None}
         if updates:
-            video = await self.repo.update(video, updates)
+            await self.repo.update(video, updates)
 
         if tag_ids is not None:
             tags = await self.tag_repo.get_by_ids(tag_ids)
             video.tags = list(tags)
             await self.repo.db.flush()
 
-        return video
+        return await self.repo.get_by_id(video_id)
 
     async def publish(self, video_id: UUID):
         video = await self.repo.get_by_id(video_id)
         if not video:
             raise NotFoundError("Video")
-        return await self.repo.update(video, {
+        await self.repo.update(video, {
             "status": "published",
             "published_at": datetime.now(timezone.utc),
         })
+        return await self.repo.get_by_id(video_id)
 
     async def archive(self, video_id: UUID):
         video = await self.repo.get_by_id(video_id)

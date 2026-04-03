@@ -18,6 +18,12 @@ class VideoRepository(BaseRepository[Video]):
             selectinload(Video.tags),
         )
 
+    async def get_by_id(self, id: UUID) -> Optional[Video]:
+        result = await self.db.execute(
+            self._base_query().where(Video.id == id)
+        )
+        return result.scalar_one_or_none()
+
     async def get_by_slug(self, slug: str) -> Optional[Video]:
         result = await self.db.execute(
             self._base_query().where(Video.slug == slug)
