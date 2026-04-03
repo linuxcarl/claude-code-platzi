@@ -94,15 +94,15 @@ export default function SubscriptionPage() {
               <div>
                 <p className="text-gray-500">Facturación</p>
                 <p className="text-white font-medium">
-                  {subscription.billing_period === "monthly" ? "Mensual" : "Anual"}
+                  {subscription.billing_cycle === "monthly" ? "Mensual" : "Anual"}
                 </p>
               </div>
               <div>
                 <p className="text-gray-500">Precio</p>
                 <p className="text-white font-medium">
-                  ${subscription.billing_period === "monthly"
+                  ${subscription.billing_cycle === "monthly"
                     ? subscription.plan.monthly_price
-                    : subscription.plan.annual_price}/{subscription.billing_period === "monthly" ? "mes" : "año"}
+                    : subscription.plan.annual_price}/{subscription.billing_cycle === "monthly" ? "mes" : "año"}
                 </p>
               </div>
               <div>
@@ -135,7 +135,7 @@ export default function SubscriptionPage() {
                   <div key={p.id} className="flex items-center justify-between text-sm">
                     <div>
                       <p className="text-white">{p.plan_name}</p>
-                      <p className="text-gray-500">{new Date(p.created_at).toLocaleDateString("es")}</p>
+                      <p className="text-gray-500">{new Date(p.paid_at || p.created_at).toLocaleDateString("es")}</p>
                     </div>
                     <div className="text-right">
                       <p className="text-white font-medium">${p.amount} {p.currency}</p>

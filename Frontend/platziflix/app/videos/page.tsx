@@ -53,8 +53,12 @@ function CatalogContent() {
   }, [categorySlug, tagSlug, search, isFree, sort, currentPage]);
 
   useEffect(() => {
-    categoriesApi.list().then(setCategories).catch(console.error);
-    tagsApi.list().then(setTags).catch(console.error);
+    categoriesApi.list()
+      .then((d) => setCategories(Array.isArray(d) ? d : (d as unknown as { items: Category[] }).items ?? []))
+      .catch(console.error);
+    tagsApi.list()
+      .then((d) => setTags(Array.isArray(d) ? d : (d as unknown as { items: Tag[] }).items ?? []))
+      .catch(console.error);
   }, []);
 
   useEffect(() => { loadVideos(); }, [loadVideos]);

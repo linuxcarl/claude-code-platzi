@@ -19,14 +19,17 @@ export default function PlansPage() {
   const router = useRouter();
 
   useEffect(() => {
-    subsApi.plans().then(setPlans).catch(console.error).finally(() => setLoading(false));
+    subsApi.plans()
+      .then((d) => setPlans(Array.isArray(d) ? d : []))
+      .catch(console.error)
+      .finally(() => setLoading(false));
   }, []);
 
   const handleSubscribe = async (plan: SubscriptionPlan) => {
     if (!user) { router.push("/login?redirect=/plans"); return; }
     setSubscribing(plan.id);
     try {
-      await subsApi.subscribe({ plan_id: plan.id, billing_period: billing });
+      await subsApi.subscribe({ plan_id: plan.id, billing_cycle: billing });
       toast.success(`¡Suscripción a ${plan.name} activada!`);
       router.push("/profile/subscription");
     } catch (err: unknown) {

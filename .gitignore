@@ -1,6 +1,10 @@
 # Created by https://www.toptal.com/developers/gitignore/api/python,node,macos,windows,linux,mean,react,nextjs
 # Edit at https://www.toptal.com/developers/gitignore?templates=python,node,macos,windows,linux,mean,react,nextjs
 
+# Allow Frontend/platziflix/lib source files
+!Frontend/platziflix/lib/
+!Frontend/platziflix/lib/**
+
 ### Linux ###
 *~
 

@@ -65,8 +65,8 @@ export default function VideoPlayer({
       try {
         await progressApi.update({
           video_id: videoId,
-          position_seconds: Math.floor(video.currentTime),
-          duration_seconds: Math.floor(video.duration || 0),
+          watched_seconds: Math.floor(video.currentTime),
+          total_seconds: Math.floor(video.duration || 0),
         });
         onProgressUpdate?.(Math.floor(video.currentTime));
       } catch { /* ignore auth errors */ }

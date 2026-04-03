@@ -18,10 +18,14 @@ export default function HomePage() {
   useEffect(() => {
     async function load() {
       try {
-        const [catsData, freeVideos] = await Promise.all([
+        const [catsRaw, freeVideos] = await Promise.all([
           categoriesApi.list(),
           videosApi.list({ is_free: true, page_size: 1 }),
         ]);
+        // Guard: API may return paginated object or plain array
+        const catsData: Category[] = Array.isArray(catsRaw)
+          ? catsRaw
+          : (catsRaw as unknown as { items: Category[] }).items ?? [];
         setCategories(catsData);
         if (freeVideos.items.length > 0) setFeatured(freeVideos.items[0]);
 
@@ -87,7 +91,7 @@ export default function HomePage() {
             {Array.from({ length: 8 }).map((_, i) => <SkeletonCard key={i} />)}
           </div>
         ) : (
-          categories
+          (Array.isArray(categories) ? categories : [])
             .filter((cat) => videosByCategory[cat.slug]?.length > 0)
             .map((cat) => (
               <section key={cat.slug}>

@@ -100,8 +100,8 @@ export default function VideoDetailPage() {
   if (!video) return null;
 
   const progressPct =
-    video.user_progress && video.user_progress.duration_seconds
-      ? Math.floor((video.user_progress.position_seconds / video.user_progress.duration_seconds) * 100)
+    video.user_progress && video.user_progress.total_seconds
+      ? Math.floor((video.user_progress.watched_seconds / video.user_progress.total_seconds) * 100)
       : 0;
 
   return (
@@ -111,7 +111,7 @@ export default function VideoDetailPage() {
         videoUrl={video.video_url}
         hlsUrl={video.hls_url}
         videoId={video.id}
-        initialPosition={video.user_progress?.position_seconds || 0}
+        initialPosition={video.user_progress?.watched_seconds || 0}
       />
 
       {/* Meta */}

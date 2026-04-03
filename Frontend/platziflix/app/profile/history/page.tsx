@@ -29,8 +29,8 @@ export default function HistoryPage() {
 
   const progressMap = Object.fromEntries(
     history.map((h) => [
-      h.video_id,
-      h.duration_seconds ? Math.floor((h.position_seconds / h.duration_seconds) * 100) : 0,
+      h.video.id,
+      h.total_seconds ? Math.floor((h.watched_seconds / h.total_seconds) * 100) : 0,
     ])
   );
 
@@ -56,8 +56,8 @@ export default function HistoryPage() {
         </div>
       ) : (
         <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5 gap-4">
-          {history.map((h) => (
-            <VideoCard key={h.id} video={h.video} userProgress={progressMap[h.video_id]} />
+          {history.map((h, i) => (
+            <VideoCard key={`${h.video.id}-${i}`} video={h.video} userProgress={progressMap[h.video.id]} />
           ))}
         </div>
       )}
