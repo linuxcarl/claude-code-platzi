@@ -1,0 +1,2 @@
+- [Platziflix Overview](project_platziflix_overview.md) — Greenfield edu-streaming platform: stack, MVP scope, 6 modules
+- [User: Carlos Ramirez](user_carlos.md) — Project lead, Spanish, expects exhaustive technical docs
